@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:myapp/Message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,27 +14,20 @@ class _MessageListState extends State<MessageList> {
 
   var messages = const [];
 
-  /**
-   * @todo check dart Future keyword
-   *
-   */
   Future loadMessageList() async {
-    var content = await rootBundle.loadString('data/messages.json');
-    var collection = json.decode(content);
+    String content = await rootBundle.loadString('data/messages.json');
+    List collection = json.decode(content);
+    List <Message> _messages = collection.map((json) => Message.fromJson(json) ).toList();
     setState(() {
-      messages = collection;
+      messages = _messages;
     });
   }
 
-
-  /**
-   * @todo check dart Future keyword
-   *
-   */
   void initState() {
     loadMessageList();
     super.initState();
   }
+
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -45,19 +38,17 @@ class _MessageListState extends State<MessageList> {
           separatorBuilder: (BuildContext context, int index) => Divider(),
           itemCount: messages.length,
           itemBuilder: (BuildContext context, int index)  {
-            var message = messages[index];
+            Message message = messages[index];
             return ListTile(
-              title: Text(message['subject']),
+              title: Text(message.subject),
               isThreeLine: true,
               leading: CircleAvatar(
                   child: Text('CD')
 
               ),
-              subtitle: Text(message['body']),
-
+              subtitle: Text(message.body),
             );
           },
-
         )
     );
   }
