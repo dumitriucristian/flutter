@@ -15,12 +15,15 @@ class _MessageListState extends State<MessageList> {
 
   List<Message> messages = [];
   var url = 'https://run.mocky.io/v3/95626e8b-d1d3-4e8f-bb2f-8099fa603353';
+  bool isLoading = true;
 
   Future loadMessageList() async {
     //load data from json
     //String content = await rootBundle.loadString('data/messages.json');
     //load data from http
     http.Response response = await http.get(url);
+
+    await Future.delayed(Duration(seconds: 3));
 
     /**
      * @todo use Automati JSON serialization
@@ -29,6 +32,7 @@ class _MessageListState extends State<MessageList> {
     List <Message> _messages = collection.map((json) => Message.fromJson(json) ).toList();
     setState(() {
       messages = _messages;
+      isLoading = false;
     });
   }
 
@@ -43,16 +47,18 @@ class _MessageListState extends State<MessageList> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: ListView.separated(
-          separatorBuilder: (BuildContext context, int index) => Divider(),
-          itemCount: messages.length,
-          itemBuilder: (BuildContext context, int index)  {
-            Message message = messages[index];
-            return ListTile(
-              title: Text(message.subject),
-              isThreeLine: true,
-              leading: CircleAvatar(
-                  child: Text('CD')
+        body: isLoading
+            ? Center( child: CircularProgressIndicator())
+            : ListView.separated(
+                separatorBuilder: (BuildContext context, int index) => Divider(),
+                itemCount: messages.length,
+                itemBuilder: (BuildContext context, int index)  {
+                  Message message = messages[index];
+                  return ListTile(
+                    title: Text(message.subject),
+                    isThreeLine: true,
+                    leading: CircleAvatar(
+                        child: Text('CD')
 
               ),
               subtitle: Text(message.body),
