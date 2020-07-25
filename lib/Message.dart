@@ -8,7 +8,7 @@ class Message {
   Message(this.subject, this.body);
   Message.fromJson(Map<String, dynamic> json) :  subject = json['subject'], body = json['body'];
 
-  static Future browse() async {
+  static Future<List<Message>> browse() async {
       //load data from json
       //String content = await rootBundle.loadString('data/messages.json');
 
