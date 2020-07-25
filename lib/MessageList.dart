@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'package:myapp/Message.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 
 class MessageList extends StatefulWidget {
   final String title;
@@ -18,18 +15,7 @@ class _MessageListState extends State<MessageList> {
   bool isLoading = true;
 
   Future loadMessageList() async {
-    //load data from json
-    //String content = await rootBundle.loadString('data/messages.json');
-    //load data from http
-    http.Response response = await http.get(url);
-
-    await Future.delayed(Duration(seconds: 3));
-
-    /**
-     * @todo use Automati JSON serialization
-     */
-    List collection = json.decode(response.body);
-    List <Message> _messages = collection.map((json) => Message.fromJson(json) ).toList();
+    List<Message> _messages = await Message.browse();
     setState(() {
       messages = _messages;
       isLoading = false;
