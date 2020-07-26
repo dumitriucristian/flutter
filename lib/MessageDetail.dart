@@ -12,7 +12,8 @@ class MessageDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(title: Text(this.subject)),
-      body: Center(child: Text(this.body)));
+      body: Container( padding: EdgeInsets.all(16),
+            child: Text(this.body)));
   }
 }
 
