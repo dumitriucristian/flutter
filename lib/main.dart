@@ -11,9 +11,7 @@ class EmailApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        accentColor: Colors.green,
+      theme: ThemeData( primarySwatch: Colors.blueGrey,  accentColor: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MessageList(title: 'Mail app test'),

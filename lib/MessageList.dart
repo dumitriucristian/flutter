@@ -1,5 +1,9 @@
+ import 'dart:convert';
+import 'package:myapp/ComposeButton.dart';
 import 'package:myapp/Message.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:myapp/MessageDetail.dart';
 
 class MessageList extends StatefulWidget {
   final String title;
@@ -56,8 +60,17 @@ class _MessageListState extends State<MessageList> {
                   );
               };
             },
+         ),
+         subtitle: Text(message.body),
+         onTap: () {
+         Navigator.push(context,
+         MaterialPageRoute(
+            builder: (BuildContext context) => MessageDetail(message.subject, message.body)));
+              }
+            );
+          },
         ),
-
+      floatingActionButton: ComposeButton(),
     );
   }
 }
