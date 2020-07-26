@@ -1,9 +1,10 @@
-import 'dart:convert';
+ import 'dart:convert';
 import 'package:myapp/Message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:myapp/MessageDetail.dart';
+import 'package:myapp/MessageCompose.dart';
 class MessageList extends StatefulWidget {
   final String title;
   MessageList({ this.title });
@@ -56,9 +57,25 @@ class _MessageListState extends State<MessageList> {
 
               ),
               subtitle: Text(message.body),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context){
+                   return MessageDetail();
+                }));
+              }
             );
           },
-        )
+        ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
+            return MessageCompose();
+          }));
+
+        },
+      )
+
     );
   }
 }
