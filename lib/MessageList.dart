@@ -60,7 +60,7 @@ class _MessageListState extends State<MessageList> {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => MessageDetail()));
+                        builder: (BuildContext context) => MessageDetail(message.subject, message.body)));
               }
             );
           },
@@ -68,10 +68,8 @@ class _MessageListState extends State<MessageList> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
-            return MessageCompose();
-          }));
-
+          Navigator.push(context, MaterialPageRoute(
+              builder: (BuildContext) => MessageCompose()));
         },
       )
 
